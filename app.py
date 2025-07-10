@@ -112,3 +112,13 @@ if uploaded_file:
             )
     except Exception as e:
         st.error(f"Ошибка при обработке файла: {e}")
+
+# после вывода таблицы результата
+st.write("Результат распределения:")
+st.dataframe(result)
+
+# Добавляем блок с итоговыми суммами
+total_sum = result["Сумма"].sum()
+total_nds = result["НДС"].sum()
+st.markdown(f"**Итоговая сумма:** {total_sum:,.2f}")
+st.markdown(f"**Итоговый НДС:** {total_nds:,.2f}")
