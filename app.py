@@ -97,6 +97,13 @@ if uploaded_file:
             st.write("Результат распределения:")
             st.dataframe(result)
 
+            # Итоговые суммы для удобной проверки
+            total_sum = result["Сумма"].sum()
+            total_nds = result["НДС"].sum()
+            st.markdown(f"**Итоговая сумма:** {total_sum:,.2f}")
+            st.markdown(f"**Итоговый НДС:** {total_nds:,.2f}")
+
+            # Кнопка для скачивания результата
             output = io.BytesIO()
             with pd.ExcelWriter(output, engine="openpyxl") as writer:
                 raboty.to_excel(writer, sheet_name="Работы", index=False)
@@ -112,13 +119,3 @@ if uploaded_file:
             )
     except Exception as e:
         st.error(f"Ошибка при обработке файла: {e}")
-
-# после вывода таблицы результата
-st.write("Результат распределения:")
-st.dataframe(result)
-
-# Добавляем блок с итоговыми суммами
-total_sum = result["Сумма"].sum()
-total_nds = result["НДС"].sum()
-st.markdown(f"**Итоговая сумма:** {total_sum:,.2f}")
-st.markdown(f"**Итоговый НДС:** {total_nds:,.2f}")
